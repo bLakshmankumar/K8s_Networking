@@ -91,3 +91,14 @@
    
    > Kubernetes services handle the abstraction layer. These services assign a single IP address to each set of pods. This enables the routing of traffic addressed to a pod through the virtual IP address of the service.
    > As a result, Kubernetes overcomes the dynamic nature of pods networking and blocks unhealthy and dying pods from receiving traffic.
+
+
+# How service will interact with these pods-: (with help of kube-proxy)
+  ------------------------------------------------------------------------------------
+   > For ex i have two nodes -: one node has two pods with some unique ips and another node has another pod.(Total we have 3 pods in two nodes).
+
+#  > So how service will interact with these pods -: 
+   -------------------------------------------------
+
+   > Each node has some kube-proxy and IPtables, This kube-proxy will route the traffic to the ip tables. Then that ip table will check the pod ips.(bcs This pod ips are automatically stored in IPtables).
+   > When request hit the  service then the service will check the kube-proxy It tables then it'll route the traffic to the pod.(using round robin method).
